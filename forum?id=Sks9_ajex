@@ -1,0 +1,73 @@
+<html>
+
+<head>
+  <title>Open Review</title>
+  <link rel="stylesheet" href="static/css/font-awesome.min.css">
+  <link rel='stylesheet' href='static/css/opensans.css' type='text/css'>
+  <link rel="stylesheet" href="static/css/style.css" type="text/css">
+  <link rel="stylesheet" href="static/css/scrollbar.css" type="text/css">
+</head>
+
+<body>
+
+<script src="static/libs/third-party/jquery.min.js"></script>
+<script src="static/libs/third-party/jquery-ui.min.js"></script>
+<script src="static/libs/third-party/lodash.compat.min.js"></script>
+<script src="static/libs/third-party/jsrsasign-latest-all-min.js"></script>
+<script src="static/libs/view.min.js"></script>
+<script src="static/libs/profileView.min.js"></script>
+<script src="static/libs/model.min.js"></script>
+<script src="static/libs/stateManager.min.js"></script>
+<script src="static/libs/controller.min.js"></script>
+<script src="static/libs/main.min.js"></script>
+<script src="static/libs/home.min.js"></script>
+<script src="static/libs/login.min.js"></script>
+<script src="static/libs/signup.min.js"></script>
+<script src="static/libs/confirm.min.js"></script>
+<script src="static/libs/resetConfirm.min.js"></script>
+<script src="static/libs/tasks.min.js"></script>
+<script src="static/libs/group.min.js"></script>
+<script src="static/libs/invitation.min.js"></script>
+<script src="static/libs/forum.min.js"></script>
+<script src="static/libs/revisions.min.js"></script>
+<script src="static/libs/activation.min.js"></script>
+<script src="static/libs/profile.min.js"></script>
+<script src="static/libs/about.min.js"></script>
+<script src="static/libs/reset.min.js"></script>
+<script src="static/libs/searchresults.min.js"></script>
+<script src="static/libs/autocomplete_mod.min.js"></script>
+<script src="static/libs/search.min.js"></script>
+<script src="static/libs/cajaManager.min.js"></script>
+
+<script>
+
+var pathPrefix = function() {
+  return _.startsWith(window.location.pathname, '/_db/_system/openreview/') ? '/_db/_system/openreview/' : '/';
+};
+
+var mainApp;
+
+$(function() {
+
+  $(document).on('click', function(event) {
+    if (!$(event.target).closest('.dropdown').length) {
+      $('.dropdown .dropdown_content').hide();
+    }
+  });
+
+  controller.getToken(function(result) {
+    controller.update('token', result.token);
+    mainApp = runMain();
+    mainApp.route({});
+
+    window.onpopstate = function(event) {
+      console.log('event.state', event.state);
+      mainApp.onpopstate(event.state || {});
+    };
+
+  });
+
+});
+</script>
+</body>
+</html>
